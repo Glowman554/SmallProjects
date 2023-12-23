@@ -47,7 +47,7 @@ public class TeamGUI implements Listener
 
 	private void populateInventory(Inventory inventory, HumanEntity player)
 	{
-		List<String> lore = Arrays.asList(new String[] {"§c§lᴡᴀʜʟᴇ ᴅɪᴇsᴇs ᴛᴇᴀᴍ ᴜɴᴅ ᴛᴇʟᴇᴘᴏʀᴛɪᴇʀᴇ ᴅɪᴄʜ ᴢᴜ ᴅᴇɪɴᴇʀ ᴛᴇᴀᴍ-ʙᴀsᴇ."});
+		List<String> lore = Arrays.asList(new String[] {"§c§lᴡäʜʟᴇ ᴅɪᴇsᴇs ᴛᴇᴀᴍ ᴜɴᴅ ᴛᴇʟᴇᴘᴏʀᴛɪᴇʀᴇ ᴅɪᴄʜ ᴢᴜ ᴅᴇɪɴᴇʀ ᴛᴇᴀᴍ-ʙᴀsᴇ."});
 
 		ItemStack teamBlue = new ItemStack(Material.BLUE_SHULKER_BOX);
 		ItemMeta metaBlue = teamBlue.getItemMeta();

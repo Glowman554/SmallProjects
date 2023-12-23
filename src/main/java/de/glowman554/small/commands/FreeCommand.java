@@ -10,13 +10,19 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import de.glowman554.small.SmallProjectsMain;
 import de.glowman554.small.utils.AutoResettingArrayList;
 
 public class FreeCommand implements CommandExecutor
 {
 	private AutoResettingArrayList<UUID> cooldown = new AutoResettingArrayList<UUID>();
 	private Random random = new Random();
+
+	private final List<ItemStack> items;
+
+	public FreeCommand(List<ItemStack> items)
+	{
+		this.items = items;
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
@@ -36,7 +42,6 @@ public class FreeCommand implements CommandExecutor
 		{
 			cooldown.add(player.getUniqueId());
 
-			List<ItemStack> items = SmallProjectsMain.getInstance().getFreeItems();
 			ItemStack item = items.get(random.nextInt(items.size())).clone();
 
 			player.getInventory().addItem(item);

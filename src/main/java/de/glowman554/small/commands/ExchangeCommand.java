@@ -10,11 +10,19 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import de.glowman554.small.SmallProjectsMain;
-
 public class ExchangeCommand implements CommandExecutor
 {
 	private Random random = new Random();
+	private final List<ItemStack> items;
+	private final String message;
+	private final Material[] allowedMaterials;
+
+	public ExchangeCommand(List<ItemStack> items, String message, Material[] allowedMaterials)
+	{
+		this.items = items;
+		this.message = message;
+		this.allowedMaterials = allowedMaterials;
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
@@ -26,19 +34,19 @@ public class ExchangeCommand implements CommandExecutor
 		}
 		Player player = (Player) sender;
 
-		if (!player.getInventory().contains(Material.END_STONE, 64))
+		for (Material material : allowedMaterials)
 		{
-			player.sendMessage("§c§lᴅᴜ ʙᴇsɪᴛᴢᴛ ɴɪᴄʜᴛ ɢᴇɴᴜɢ ᴇɴᴅsᴛᴏɴᴇ.");
-		}
-		else
-		{
-			List<ItemStack> items = SmallProjectsMain.getInstance().getExchangeItems();
-			ItemStack item = items.get(random.nextInt(items.size())).clone();
 
-			removeFromInventory(player, Material.END_STONE, 64);
+			if (player.getInventory().contains(material, 64))
+			{
+				ItemStack item = items.get(random.nextInt(items.size())).clone();
+				removeFromInventory(player, material, 64);
+				player.getInventory().addItem(item);
 
-			player.getInventory().addItem(item);
+				return false;
+			}
 		}
+		player.sendMessage(message);
 
 		return false;
 	}
@@ -54,7 +62,7 @@ public class ExchangeCommand implements CommandExecutor
 				int amount = stack.getAmount();
 				if (amount <= quantity)
 				{
-					player.getInventory().remove(stack);
+					stack.setAmount(0);
 					removed += amount;
 					quantity -= amount;
 				}

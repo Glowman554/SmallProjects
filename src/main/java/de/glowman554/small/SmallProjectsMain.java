@@ -34,6 +34,8 @@ public class SmallProjectsMain extends JavaPlugin
 
 	private List<ItemStack> freeItems;
 	private List<ItemStack> exchangeItems;
+	private List<ItemStack> freeItems2;
+	private List<ItemStack> exchangeItems2;
 
 	private void loadTeam(Teams team)
 	{
@@ -72,6 +74,8 @@ public class SmallProjectsMain extends JavaPlugin
 	{
 		config.addDefault("exchange_items", new String[] {"grass_block*64", "stone*32"});
 		config.addDefault("free_items", new String[] {"grass_block*64", "diamond_block*32"});
+		config.addDefault("exchange_items2", new String[] {"grass_block*64", "stone*32"});
+		config.addDefault("free_items2", new String[] {"grass_block*64", "diamond_block*32"});
 
 		config.addDefault("RED.x", 0);
 		config.addDefault("RED.y", 100);
@@ -100,6 +104,8 @@ public class SmallProjectsMain extends JavaPlugin
 
 		freeItems = loadItems("free_items");
 		exchangeItems = loadItems("exchange_items");
+		freeItems2 = loadItems("free_items2");
+		exchangeItems2 = loadItems("exchange_items2");
 	}
 
 	@Override
@@ -109,9 +115,11 @@ public class SmallProjectsMain extends JavaPlugin
 
 		getCommand("team").setExecutor(new TeamCommand());
 		getCommand("tspawn").setExecutor(new TeamSpawnCommand());
-		
-		getCommand("free").setExecutor(new FreeCommand());
-		getCommand("tausch").setExecutor(new ExchangeCommand());
+
+		getCommand("free").setExecutor(new FreeCommand(freeItems));
+		getCommand("tausch").setExecutor(new ExchangeCommand(exchangeItems, "§c§lᴅᴜ ʙᴇsɪᴛᴢᴛ ɴɪᴄʜᴛ ɢᴇɴᴜɢ ᴇɴᴅsᴛᴏɴᴇ.", new Material[] {Material.END_STONE}));
+		getCommand("free2").setExecutor(new FreeCommand(freeItems2));
+		getCommand("tausch2").setExecutor(new ExchangeCommand(exchangeItems2, "§c§lᴅᴜ ʜᴀsᴛ ᴢᴜ-ᴡᴇɴɪɢ ғɪsᴄʜ ᴅᴇʀ ɢʟᴇɪᴄʜᴇɴ ᴀʀᴛ.", new Material[] {Material.COD, Material.SALMON, Material.PUFFERFISH, Material.TROPICAL_FISH}));
 	}
 
 	@Override
@@ -134,16 +142,6 @@ public class SmallProjectsMain extends JavaPlugin
 	public FileConfiguration getTeams()
 	{
 		return teams;
-	}
-
-	public List<ItemStack> getFreeItems()
-	{
-		return freeItems;
-	}
-
-	public List<ItemStack> getExchangeItems()
-	{
-		return exchangeItems;
 	}
 
 	public static SmallProjectsMain getInstance()
