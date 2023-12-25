@@ -116,9 +116,9 @@ public class SmallProjectsMain extends JavaPlugin
 		getCommand("team").setExecutor(new TeamCommand());
 		getCommand("tspawn").setExecutor(new TeamSpawnCommand());
 
-		getCommand("free").setExecutor(new FreeCommand(freeItems));
+		getCommand("free").setExecutor(new FreeCommand(freeItems, "freeCooldown"));
 		getCommand("tausch").setExecutor(new ExchangeCommand(exchangeItems, "§c§lᴅᴜ ʙᴇsɪᴛᴢᴛ ɴɪᴄʜᴛ ɢᴇɴᴜɢ ᴇɴᴅsᴛᴏɴᴇ.", new Material[] {Material.END_STONE}));
-		getCommand("free2").setExecutor(new FreeCommand(freeItems2));
+		getCommand("free2").setExecutor(new FreeCommand(freeItems2, "free2Cooldown"));
 		getCommand("tausch2").setExecutor(new ExchangeCommand(exchangeItems2, "§c§lᴅᴜ ʜᴀsᴛ ᴢᴜ-ᴡᴇɴɪɢ ғɪsᴄʜ ᴅᴇʀ ɢʟᴇɪᴄʜᴇɴ ᴀʀᴛ.", new Material[] {Material.COD, Material.SALMON, Material.PUFFERFISH, Material.TROPICAL_FISH}));
 	}
 

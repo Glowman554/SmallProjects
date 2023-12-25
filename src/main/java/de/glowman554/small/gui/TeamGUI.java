@@ -24,7 +24,7 @@ import de.glowman554.small.utils.AutoResettingArrayList;
 public class TeamGUI implements Listener
 {
 	private HashMap<HumanEntity, Inventory> inventoryInstances = new HashMap<>();
-	private AutoResettingArrayList<UUID> cooldown = new AutoResettingArrayList<>();
+	private AutoResettingArrayList<UUID> cooldown = new AutoResettingArrayList<>("teamsCooldown", UUID::fromString);
 
 	private static TeamGUI gui = new TeamGUI();
 
@@ -84,18 +84,16 @@ public class TeamGUI implements Listener
 			{
 				case 11:
 					SmallProjectsMain.getInstance().getTeams().set(e.getWhoClicked().getUniqueId().toString(), Teams.BLUE.toString());
-					cooldown.add(e.getWhoClicked().getUniqueId());
 					break;
 				case 13:
 					SmallProjectsMain.getInstance().getTeams().set(e.getWhoClicked().getUniqueId().toString(), Teams.RED.toString());
-					cooldown.add(e.getWhoClicked().getUniqueId());
+
 					break;
 				case 15:
 					SmallProjectsMain.getInstance().getTeams().set(e.getWhoClicked().getUniqueId().toString(), Teams.YELLOW.toString());
-					cooldown.add(e.getWhoClicked().getUniqueId());
 					break;
 			}
-			
+
 			SmallProjectsMain.getInstance().saveTeams();
 		}
 	}
@@ -114,6 +112,8 @@ public class TeamGUI implements Listener
 	{
 		if (e.getInventory().equals(inventoryInstances.get(e.getPlayer())))
 		{
+			cooldown.add(e.getPlayer().getUniqueId());
+			cooldown.save();
 			inventoryInstances.remove(e.getPlayer());
 		}
 	}
