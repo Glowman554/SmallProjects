@@ -3,6 +3,8 @@ version: ${project.version}
 main: de.glowman554.small.SmallProjectsMain
 api-version: 1.19
 author: Glowman554
+depend:
+  - LuckPerms
 commands:
   team:
   tspawn:

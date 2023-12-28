@@ -80,21 +80,25 @@ public class TeamGUI implements Listener
 
 			int rawSlot = e.getRawSlot();
 
-			switch (rawSlot)
-			{
-				case 11:
-					SmallProjectsMain.getInstance().getTeams().set(e.getWhoClicked().getUniqueId().toString(), Teams.BLUE.toString());
-					break;
-				case 13:
-					SmallProjectsMain.getInstance().getTeams().set(e.getWhoClicked().getUniqueId().toString(), Teams.RED.toString());
+			String oldTeam = SmallProjectsMain.getInstance().getTeams().getString(e.getWhoClicked().getUniqueId().toString());
 
-					break;
-				case 15:
-					SmallProjectsMain.getInstance().getTeams().set(e.getWhoClicked().getUniqueId().toString(), Teams.YELLOW.toString());
-					break;
+			if (oldTeam != null) {
+				SmallProjectsMain.getInstance().getPermissionManager().removePermission(e.getWhoClicked(), "team." + oldTeam);
 			}
 
-			SmallProjectsMain.getInstance().saveTeams();
+			Teams newTeam = switch (rawSlot) {
+                case 11 -> Teams.BLUE;
+                case 13 -> Teams.RED;
+                case 15 -> Teams.YELLOW;
+                default -> null;
+            };
+
+            if (newTeam != null) {
+				SmallProjectsMain.getInstance().getTeams().set(e.getWhoClicked().getUniqueId().toString(), newTeam.toString());
+				SmallProjectsMain.getInstance().saveTeams();
+				SmallProjectsMain.getInstance().getPermissionManager().addPermission(e.getWhoClicked(), "team." + newTeam.toString());
+				e.getWhoClicked().closeInventory();
+			}
 		}
 	}
 

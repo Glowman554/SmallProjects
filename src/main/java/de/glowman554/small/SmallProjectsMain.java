@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 
+import de.glowman554.small.utils.PermissionManager;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -36,6 +37,8 @@ public class SmallProjectsMain extends JavaPlugin
 	private List<ItemStack> exchangeItems;
 	private List<ItemStack> freeItems2;
 	private List<ItemStack> exchangeItems2;
+
+	private PermissionManager permissionManager;
 
 	private void loadTeam(Teams team)
 	{
@@ -147,5 +150,12 @@ public class SmallProjectsMain extends JavaPlugin
 	public static SmallProjectsMain getInstance()
 	{
 		return instance;
+	}
+
+	public PermissionManager getPermissionManager() {
+		if (permissionManager == null) {
+			permissionManager = new PermissionManager();
+		}
+		return permissionManager;
 	}
 }
